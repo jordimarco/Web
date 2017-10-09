@@ -19,4 +19,22 @@ public class WebActivity extends AppCompatActivity {
         textViewResult = (TextView) findViewById(R.id.textViewResult);
     }
 
+    public void connect(View view) {
+        String url = editTextURL.getText().toString();
+        WebReaderTask wrTask = new WebReaderTask();
+        wrTask.execute(url);
+    }
+
+    private class WebReaderTask extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+            return WebReader.getUrl(url[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            textViewResult.setText(s);
+        }
+    }
 }
